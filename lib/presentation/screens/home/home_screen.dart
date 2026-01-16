@@ -47,7 +47,7 @@ class _CustomListTile extends StatelessWidget {
       trailing: Icon(Icons.arrow_forward_ios_rounded),
       title: Text(menuItem.title),
       subtitle: Text(menuItem.subTitle),
-      onTap: () => context.pushNamed(menuItem.link),
+      onTap: () => context.pushNamed('progress'),
     );
   }
 }
