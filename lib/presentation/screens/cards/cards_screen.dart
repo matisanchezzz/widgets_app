@@ -10,8 +10,8 @@ const cards = <Map<String, dynamic>>[
 ];
 
 class CardsScreen extends StatelessWidget {
-  static const String name = 'cards_screen';
-  static const String path = '/cards';
+  static const name = 'cards';
+  static const path = '/cards';
 
   const CardsScreen({super.key});
 
@@ -168,8 +168,6 @@ class _CardType4 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-
     return Card(
       clipBehavior: Clip.hardEdge,
       elevation: elevation,

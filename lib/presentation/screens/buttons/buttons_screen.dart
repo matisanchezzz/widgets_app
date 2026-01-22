@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ButtonsScreen extends StatelessWidget {
-  static const String name = 'buttons_screen';
-  static const String path = '/buttons';
+  static const name = 'buttons';
+  static const path = '/buttons';
 
   const ButtonsScreen({super.key});
 

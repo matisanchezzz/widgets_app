@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:widgets_app/config/menu/menu_items.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String name = 'home_screen';
-  static const String path = '/';
+  static const name = 'home';
+  static const path = '/';
 
   const HomeScreen({super.key});
 
@@ -47,7 +47,7 @@ class _CustomListTile extends StatelessWidget {
       trailing: Icon(Icons.arrow_forward_ios_rounded),
       title: Text(menuItem.title),
       subtitle: Text(menuItem.subTitle),
-      onTap: () => context.pushNamed('progress'),
+      onTap: () => context.pushNamed(menuItem.link),
     );
   }
 }
