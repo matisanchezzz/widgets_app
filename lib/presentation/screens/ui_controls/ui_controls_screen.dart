@@ -26,7 +26,10 @@ enum Transportation { car, plane, boat, submarine }
 
 class _UiControlsViewState extends State<_UiControlsView> {
   bool isDeveloper = true;
-  Transportation selectedTransportation = Transportation.car;
+  Transportation _selectedTransportation = Transportation.car;
+  bool wantsBreakfast = false;
+  bool wantsLunch = false;
+  bool wantsDinner = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,28 +45,80 @@ class _UiControlsViewState extends State<_UiControlsView> {
           }),
         ),
 
-        RadioListTile(
-          title: Text('By Car'),
-          subtitle: Text('Viajar por carro'),
-          value: Transportation.car,
-        ),
+        RadioGroup(
+          groupValue: _selectedTransportation,
+          onChanged: (value) {
+            if (value == null) return;
+            setState(() {
+              _selectedTransportation = value;
+            });
+          },
+          child: Column(
+            children: [
+              ExpansionTile(
+                title: Text('Vehiculo de transporte'),
+                subtitle: Text('$_selectedTransportation'),
+                children: [
+                  RadioListTile(
+                    title: Text('By Car'),
+                    subtitle: Text('Viajar por carro'),
+                    value: Transportation.car,
+                  ),
 
-        RadioListTile(
-          title: Text('By Plane'),
-          subtitle: Text('Viajar por avion'),
-          value: Transportation.plane,
-        ),
+                  RadioListTile(
+                    title: Text('By Boat'),
+                    subtitle: Text('Viajar por barco'),
+                    value: Transportation.boat,
+                  ),
 
-        RadioListTile(
-          title: Text('By Boat'),
-          subtitle: Text('Viajar por barco'),
-          value: Transportation.boat,
-        ),
+                  RadioListTile(
+                    title: Text('By Plane'),
+                    subtitle: Text('Viajar por avion'),
+                    value: Transportation.plane,
+                  ),
 
-        RadioListTile(
-          title: Text('By Submarine'),
-          subtitle: Text('Viajar por submarino'),
-          value: Transportation.submarine,
+                  RadioListTile(
+                    title: Text('By Submarine'),
+                    subtitle: Text('Viajar por submarino'),
+                    value: Transportation.submarine,
+                  ),
+                ],
+              ),
+
+              CheckboxListTile(
+                title: const Text('Desayuno?'),
+                value: wantsBreakfast,
+                onChanged: (value) {
+                  if (value == null) return;
+                  setState(() {
+                    wantsBreakfast = !wantsBreakfast;
+                  });
+                },
+              ),
+
+              CheckboxListTile(
+                title: const Text('Almuerzo?'),
+                value: wantsLunch,
+                onChanged: (value) {
+                  if (value == null) return;
+                  setState(() {
+                    wantsLunch = !wantsLunch;
+                  });
+                },
+              ),
+
+              CheckboxListTile(
+                title: const Text('Cena?'),
+                value: wantsDinner,
+                onChanged: (value) {
+                  if (value == null) return;
+                  setState(() {
+                    wantsDinner = !wantsDinner;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ],
     );
