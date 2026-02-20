@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,11 +28,34 @@ final slides = <SlideInfo>[
   ),
 ];
 
-class AppTutorialScreen extends StatelessWidget {
+class AppTutorialScreen extends StatefulWidget {
   static const name = 'tutorial_screen';
   static const path = '/tutorial_screen';
 
   const AppTutorialScreen({super.key});
+
+  @override
+  State<AppTutorialScreen> createState() => _AppTutorialScreenState();
+}
+
+class _AppTutorialScreenState extends State<AppTutorialScreen> {
+  final PageController pageviewController = PageController();
+  bool endReached = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    pageviewController.addListener(() {
+      final page = pageviewController.page ?? 0;
+
+      if (!endReached && page >= (slides.length - 1.5)) {
+        setState(() {
+          endReached = true;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +64,7 @@ class AppTutorialScreen extends StatelessWidget {
       body: Stack(
         children: [
           PageView(
+            controller: pageviewController,
             physics: BouncingScrollPhysics(),
             children: slides
                 .map(
@@ -60,6 +85,21 @@ class AppTutorialScreen extends StatelessWidget {
               child: const Text('Salir'),
             ),
           ),
+
+          endReached
+              ? Positioned(
+                  bottom: 30,
+                  right: 30,
+                  child: FadeInRight(
+                    from: 15,
+                    delay: const Duration(seconds: 1),
+                    child: FilledButton(
+                      onPressed: () => context.pop(),
+                      child: const Text('Comenzar'),
+                    ),
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );
