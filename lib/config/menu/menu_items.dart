@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_app/presentation/screens/counter/counter_screen.dart';
 import 'package:widgets_app/presentation/screens/screens.dart';
 
 class MenuItem {
@@ -16,6 +17,13 @@ class MenuItem {
 }
 
 const appMenuItems = <MenuItem>[
+  MenuItem(
+    title: 'Riverpod Counter',
+    subTitle: 'Introduccion a riverpod',
+    link: CounterScreen.name,
+    icon: Icons.list_alt_rounded,
+  ),
+
   MenuItem(
     title: 'Botones',
     subTitle: 'Varios botones en Flutter',
