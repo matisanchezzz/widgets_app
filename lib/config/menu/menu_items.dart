@@ -79,4 +79,11 @@ const appMenuItems = <MenuItem>[
     link: InfiniteScrollScreen.name,
     icon: Icons.list_alt_rounded,
   ),
+
+  MenuItem(
+    title: 'Cambiar tema',
+    subTitle: 'Cambiar tema de la aplicacion',
+    link: ThemeChangerScreen.name,
+    icon: Icons.color_lens_outlined,
+  ),
 ];
