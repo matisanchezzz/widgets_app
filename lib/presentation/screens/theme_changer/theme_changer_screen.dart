@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:widgets_app/presentation/providers/theme_provider.dart';
 
 class ThemeChangerScreen extends ConsumerWidget {
@@ -17,7 +18,9 @@ class ThemeChangerScreen extends ConsumerWidget {
         title: Text('Theme changer'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              ref.read(isDarkmodeProvider.notifier).update((state) => !state);
+            },
             icon: Icon(
               isDarkmode ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
             ),
@@ -35,18 +38,26 @@ class _ThemeChangerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final List<Color> colors = ref.watch(colorListProvider);
+    final int selectedColor = ref.watch(selectedColorProvider);
 
-    return ListView.builder(
-      itemCount: colors.length,
-      itemBuilder: (context, index) {
-        final Color color = colors[index];
-        return RadioListTile(
-          title: Text('Este color', style: TextStyle(color: color)),
-          subtitle: Text('${color.toARGB32()}'),
-          activeColor: color,
-          value: index,
-        );
+    return RadioGroup(
+      onChanged: (value) {
+        ref.read(selectedColorProvider.notifier).state = value!;
       },
+      groupValue: selectedColor,
+      child: ListView.builder(
+        itemCount: colors.length,
+        itemBuilder: (context, index) {
+          final Color color = colors[index];
+
+          return RadioListTile(
+            title: Text('Este color', style: TextStyle(color: color)),
+            subtitle: Text('${color.toARGB32()}'),
+            activeColor: color,
+            value: index,
+          );
+        },
+      ),
     );
   }
 }
