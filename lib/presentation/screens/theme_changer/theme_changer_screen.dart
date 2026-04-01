@@ -19,9 +19,8 @@ class ThemeChangerScreen extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () {
-              //ref.read(isDarkmodeProvider.notifier).update((state) => !state);
-
               ref.read(themeNotifierProvider.notifier).toggleDarkmode();
+              //ref.read(isDarkmodeProvider.notifier).update((state) => !state);
             },
             icon: Icon(
               isDarkmode ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
@@ -40,11 +39,14 @@ class _ThemeChangerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final List<Color> colors = ref.watch(colorListProvider);
-    final int selectedColor = ref.watch(selectedColorProvider);
+    final int selectedColor = ref.watch(themeNotifierProvider).selectedColor;
+
+    //final int selectedColor = ref.watch(selectedColorProvider);
 
     return RadioGroup(
       onChanged: (value) {
-        ref.read(selectedColorProvider.notifier).state = value!;
+        ref.watch(themeNotifierProvider.notifier).changeColorIndex(value!);
+        //ref.read(selectedColorProvider.notifier).state = value!;
       },
       groupValue: selectedColor,
       child: ListView.builder(
